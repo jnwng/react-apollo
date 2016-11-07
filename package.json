@@ -5,7 +5,8 @@
   "main": "index.js",
   "typings": "index.d.ts",
   "scripts": {
-    "test": "jest",
+    "testonly": "jest",
+    "test": "npm run testonly",
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
     "posttest": "npm run lint",
     "filesize": "npm run compile:browser && ./scripts/filesize.js --file=./dist/index.min.js --maxGzip=15",
@@ -70,7 +71,7 @@
     "@types/redux-form": "^4.0.29",
     "@types/redux-immutable": "^3.0.30",
     "@types/sinon": "^1.16.29",
-    "apollo-client": "0.5.0-1",
+    "apollo-client": "0.5.0",
     "babel-jest": "^14.1.0",
     "babel-preset-react-native": "^1.9.0",
     "browserify": "^13.0.0",
@@ -91,9 +92,9 @@
     "mobx": "^2.4.2",
     "mobx-react": "^3.5.4",
     "pretty-bytes": "^3.0.1",
-    "react": "15.4.0-rc.4",
-    "react-addons-test-utils": "15.4.0-rc.4",
-    "react-dom": "15.4.0-rc.4",
+    "react": "15.3.2",
+    "react-addons-test-utils": "15.3.2",
+    "react-dom": "15.3.2",
     "react-native": "^0.36.0",
     "react-redux": "^4.4.5",
     "react-test-renderer": "15.4.0-rc.4",
@@ -112,12 +113,16 @@
     "uglify-js": "^2.6.2"
   },
   "dependencies": {
+    "apollo-client": "^0.5.0",
     "hoist-non-react-statics": "^1.2.0",
     "invariant": "^2.2.1",
     "lodash.flatten": "^4.2.0",
     "lodash.isequal": "^4.1.1",
     "lodash.isobject": "^3.0.2",
     "lodash.pick": "^4.4.0",
-    "object-assign": "^4.0.1"
+    "object-assign": "^4.0.1",
+    "react": "15.3.2",
+    "react-addons-test-utils": "15.3.2",
+    "react-dom": "15.3.2"
   }
 }
