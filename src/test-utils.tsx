@@ -12,7 +12,7 @@ import {
   DocumentNode,
 } from 'graphql';
 
-import { print } from 'graphql-tag/bundledPrinter';
+import { print } from 'graphql/language/printer';
 
 
 import ApolloProvider from './ApolloProvider';
@@ -156,9 +156,9 @@ export class MockNetworkInterface implements NetworkInterface {
 }
 
 export class MockSubscriptionNetworkInterface extends MockNetworkInterface implements SubscriptionNetworkInterface {
-  public mockedSubscriptionsByKey: { [key: string ]: MockedSubscription[] } = {};
-  public mockedSubscriptionsById: { [id: number]: MockedSubscription} = {};
-  public handlersById: {[id: number]: (error: any, result: any) => void} = {};
+  public mockedSubscriptionsByKey: { [key: string]: MockedSubscription[] } = {};
+  public mockedSubscriptionsById: { [id: number]: MockedSubscription } = {};
+  public handlersById: { [id: number]: (error: any, result: any) => void } = {};
   public subId: number;
 
   constructor(mockedSubscriptions: MockedSubscription[], ...mockedResponses: MockedResponse[]) {
@@ -189,11 +189,11 @@ export class MockSubscriptionNetworkInterface extends MockNetworkInterface imple
   }
 
   public subscribe(request: Request, handler: (error: any, result: any) => void): number {
-     const parsedRequest: ParsedRequest = {
-        query: request.query,
-        variables: request.variables,
-        debugName: request.debugName,
-      };
+    const parsedRequest: ParsedRequest = {
+      query: request.query,
+      variables: request.variables,
+      debugName: request.debugName,
+    };
     const key = requestToKey(parsedRequest);
     if (this.mockedSubscriptionsByKey.hasOwnProperty(key)) {
       const subscription = this.mockedSubscriptionsByKey[key].shift();
@@ -212,7 +212,7 @@ export class MockSubscriptionNetworkInterface extends MockNetworkInterface imple
       const subscription = this.mockedSubscriptionsById[id];
       if (subscription.results.length === 0) {
         throw new Error(`No more mocked subscription responses for the query: ` +
-        `${print(subscription.request.query)}, variables: ${JSON.stringify(subscription.request.variables)}`);
+          `${print(subscription.request.query)}, variables: ${JSON.stringify(subscription.request.variables)}`);
       }
       const response = subscription.results.shift();
       setTimeout(() => {
